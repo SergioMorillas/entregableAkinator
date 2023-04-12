@@ -1,4 +1,4 @@
-package paquete.escrituraendisco;
+package proyecto.escrituraendisco;
 import java.io.*;
 /**
  * La clase Fichero proporciona metodos para crear, eliminar, leer y escribir en
