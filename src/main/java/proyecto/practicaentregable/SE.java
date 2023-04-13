@@ -7,8 +7,6 @@ import java.io.PrintWriter;
 import static java.lang.System.exit;
 import java.util.Scanner;
 import proyecto.escrituraendisco.Fichero;
-import proyecto.interfaz.Juego;
-import proyecto.interfaz.Principal;
 
 /**
  *
@@ -50,6 +48,8 @@ public class SE {
         if (s.nextLine().equalsIgnoreCase("si")) {
             this.juega(raiz);
         } else {
+            System.out.println(Fichero.leerArchivo("./src/main/resources/texto", "guardaArbol.txt"));
+            
             guardarInformacion();
             exit(0);
         }
@@ -136,9 +136,9 @@ public class SE {
      * @param archivo Ruta del archivo de texto en el que se guardará el árbol.
      * @throws IOException Si se produce un error al escribir en el archivo.
      */
-    public void guardarArbolEnArchivo(Nodo nodo, String archivo) throws IOException {
+    public void guardarArbol(Nodo nodo, String archivo) throws IOException {
         try (PrintWriter escritor = new PrintWriter(new BufferedWriter(new FileWriter(archivo)))) {
-            guardarNodoEnArchivo(nodo, escritor);
+            guardarNodo(nodo, escritor);
         } catch (Exception e) {
             System.err.println(e);
         }
@@ -151,19 +151,23 @@ public class SE {
      * @param escritor Escritor que se encargará de escribir en el archivo de
      * texto.
      */
-    private void guardarNodoEnArchivo(Nodo nodo, PrintWriter escritor) {
+    private void guardarNodo(Nodo nodo, PrintWriter escritor) {
         if (nodo == null) {
             return;
         }
         if (nodo.getPregunta() != null) {
             escritor.println("P:" + nodo.getPregunta());
-            guardarNodoEnArchivo(nodo.getNodoSi(), escritor);
-            guardarNodoEnArchivo(nodo.getNodoNo(), escritor);
+            guardarNodo(nodo.getNodoSi(), escritor);
+            guardarNodo(nodo.getNodoNo(), escritor);
         } else {
             escritor.println("R:" + nodo.getRespuesta());
         }
     }
 
+    private void cargarNodo(Nodo nodo, PrintWriter escritor){
+
+    }
+    
     /**
      * Metodo que guarda la informacion de los nodos en un fichero txt
      *
@@ -174,10 +178,10 @@ public class SE {
         System.out.println("¿Quieres guardar la informacion de la partida?");
         if (s.nextLine().equalsIgnoreCase("si")) {
             try {
-                guardarArbolEnArchivo(this.raiz, "./src/main/resources/texto/guardaArbol.txt");
+                guardarArbol(this.raiz, "./src/main/resources/texto/guardaArbol.txt");
             } catch (Exception e) {
                 Fichero.crearArchivo("./src/main/resources/texto", "guardaArbol.txt");
-                guardarArbolEnArchivo(this.raiz, "./src/main/resources/texto/guardaArbol.txt");
+                guardarArbol(this.raiz, "./src/main/resources/texto/guardaArbol.txt");
             }
         }
     }

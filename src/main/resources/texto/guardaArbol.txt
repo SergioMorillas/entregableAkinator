@@ -1,13 +1,5 @@
 P:¿Es mamifero?
-P:¿Es domestico?
-P:¿Es can?
-R:perro
+P:¿No?
 R:gato
-P:¿Puedes montarlo?
-R:caballo
-R:tigre
-P:¿Puede volar?
+R:no
 R:paloma
-P:¿Es acuatico?
-R:delfin
-R:higuana
