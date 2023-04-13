@@ -1,5 +1,7 @@
 package proyecto.escrituraendisco;
+
 import java.io.*;
+
 /**
  * La clase Fichero proporciona metodos para crear, eliminar, leer y escribir en
  * archivos.
@@ -8,6 +10,7 @@ import java.io.*;
  * @author Sergio
  */
 public class Fichero {
+
     // <editor-fold defaultstate="collapsed" desc="Crear archivos">
     /**
      * Crea un nuevo archivo con el nombre y ruta especificados.
@@ -33,6 +36,7 @@ public class Fichero {
         }
         return archivo;
     }
+
     //</editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Eliminar archivos">
     /**
@@ -60,6 +64,7 @@ public class Fichero {
         archivo.delete();
         return true;
     }
+
     //</editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Leer archivos">
     /**
@@ -75,7 +80,7 @@ public class Fichero {
         File archivo = new File(ruta, nombre);
         StringBuilder sb = new StringBuilder();
         String linea;
-        try ( BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
             while ((linea = br.readLine()) != null) {
                 sb.append(linea).append("\n");
             }
@@ -96,7 +101,7 @@ public class Fichero {
     public static String leerArchivo(File archivo) throws FileNotFoundException {
         StringBuilder sb = new StringBuilder();
         String linea;
-        try ( BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
             while ((linea = br.readLine()) != null) {
                 sb.append(linea).append("\n");
             }
@@ -105,6 +110,7 @@ public class Fichero {
         }
         return sb.toString();
     }
+
     //</editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Escribir archivos">
     /**
@@ -119,7 +125,7 @@ public class Fichero {
      */
     public static boolean escribirArchivo(String ruta, String nombre, String mensaje) {
         File archivo = new File(ruta, nombre);
-        try ( BufferedWriter bw = new BufferedWriter(new FileWriter(archivo))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(archivo))) {
             bw.write(mensaje);
             return true;
         } catch (IOException e) {
@@ -138,7 +144,7 @@ public class Fichero {
      * en caso contrario.
      */
     public static boolean escribirArchivo(File archivo, String mensaje) {
-        try ( BufferedWriter bw = new BufferedWriter(new FileWriter(archivo))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(archivo))) {
             bw.write(mensaje);
             return true;
         } catch (IOException e) {
@@ -146,12 +152,13 @@ public class Fichero {
             return false;
         }
     }
+
     //</editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Anadir texto">
     /**
      * Escribe el mensaje especificado en el archivo con el nombre y ruta
      * especificados, manteniendo el texto que hubiese previamente
-     *  
+     *
      * @param ruta La ruta del archivo.
      * @param nombre El nombre del archivo.
      * @param mensaje El mensaje a escribir en el archivo.
@@ -161,7 +168,7 @@ public class Fichero {
     public static boolean anadirTexto(String ruta, String nombre, String mensaje) throws FileNotFoundException {
         String textAntiguo = leerArchivo(ruta, nombre);
         File archivo = new File(ruta, nombre);
-        try ( BufferedWriter bw = new BufferedWriter(new FileWriter(archivo))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(archivo))) {
             bw.write(textAntiguo);
             bw.write(mensaje);
             return true;
@@ -182,7 +189,7 @@ public class Fichero {
      */
     public static boolean anadirTexto(File archivo, String mensaje) throws FileNotFoundException {
         String textAntiguo = leerArchivo(archivo);
-        try ( BufferedWriter bw = new BufferedWriter(new FileWriter(archivo))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(archivo))) {
             bw.write(textAntiguo);
             bw.write(mensaje);
             return true;

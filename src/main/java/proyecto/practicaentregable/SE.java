@@ -1,14 +1,14 @@
 package proyecto.practicaentregable;
 
 import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import static java.lang.System.exit;
 import java.util.Scanner;
 import proyecto.escrituraendisco.Fichero;
+import proyecto.interfaz.Juego;
+import proyecto.interfaz.Principal;
 
 /**
  *
@@ -133,8 +133,7 @@ public class SE {
      * Método que recorre el árbol binario y lo guarda en un archivo de texto.
      *
      * @param nodo Nodo a partir del cual se comienza a recorrer el árbol.
-     * @param archivo Ruta del archivo de texto en el que se guardará el
-     * árbol.
+     * @param archivo Ruta del archivo de texto en el que se guardará el árbol.
      * @throws IOException Si se produce un error al escribir en el archivo.
      */
     public void guardarArbolEnArchivo(Nodo nodo, String archivo) throws IOException {
