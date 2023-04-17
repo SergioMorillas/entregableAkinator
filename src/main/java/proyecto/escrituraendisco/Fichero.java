@@ -10,7 +10,6 @@ import java.io.*;
  * @author Sergio
  */
 public class Fichero {
-
     // <editor-fold defaultstate="collapsed" desc="Crear archivos">
     /**
      * Crea un nuevo archivo con el nombre y ruta especificados.
