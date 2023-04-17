@@ -8,7 +8,7 @@ import java.util.Scanner;
  */
 /*
 
-*/
+ */
 public class SEFamoso extends SEAbstracto {
 
     public SEFamoso(Nodo raiz) {
@@ -43,12 +43,13 @@ public class SEFamoso extends SEAbstracto {
             juega(raiz);
         }
     }
+
     @Override
     public void aprender(Nodo nodo) {
         String respuestas[] = new String[3];
         if (nodo.getRespuesta() != null) {
             System.out.println("¿Que famoso estabas pensando?");
-            respuestas[0] = s.nextLine().toLowerCase();
+            respuestas[0] = super.formatearPersona(s.nextLine());
             System.out.println("¿Que pregunta diferenciaría a tu famoso de "
                     + nodo.getRespuesta() + "?");
             respuestas[1] = formatearPregunta(s.nextLine());
@@ -72,5 +73,17 @@ public class SEFamoso extends SEAbstracto {
         }
     }
 
-
+    @Override
+    public String informacion() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Bienvenido a la informacion del programa, aquí aprenderas a utilizarlo");
+        sb.append("Este programa es un sistema experto el cual irá aprendiendo sobre ti hasta saber mas que tu mismo");
+        sb.append("En este apartado especifico trataremos sobre famosos\n");
+        sb.append("Cuando el sistema no sepa la respuesta sobre un tema tendrás que enseñarsela, para ello tendras que seguir unas instrucciones");
+        sb.append("1· Te preguntará por tu famoso, deberas responder con tu famoso en minusculas (Nombre o nombre y apellido) --> messi");
+        sb.append("2· Te preguntará que diferencia a tu famoso de uno especifico, deberas responder con una frase corta, de tres palabras maximo, tambien todo en minusculas --> es futbolista");
+        sb.append("3· Te preguntará si tu famoso responde afirmativamente o no a esa pregunta, deberas responder solamente si o no\n");
+        sb.append("Muchas gracias por jugar y esperemos que te guste");
+        return sb.toString();
+    }
 }

@@ -32,6 +32,18 @@ public abstract class SEAbstracto {
         s = new Scanner(System.in);
     }
 
+    public abstract void comprobaciones(Nodo nodo) throws IOException;
+
+    public abstract void aprender(Nodo nodo);
+
+    public abstract String informacion();
+
+    public String formatearPersona(String persona) {
+        char primero = persona.toUpperCase().charAt(0);
+        String resto = persona.substring(1, persona.length()).toLowerCase();
+        return primero + resto;
+    }
+
     public void juega(Nodo nodo) throws IOException {
         if (nodo.getPregunta() != null) { // Comprobamos si la pregunta no es null
             System.out.println(nodo.getPregunta());
@@ -49,18 +61,6 @@ public abstract class SEAbstracto {
             exit(0);
         }
     }
-
-    /**
-     *
-     *
-     * /**
-     *
-     * @param nodo
-     * @throws IOException
-     */
-    public abstract void comprobaciones(Nodo nodo) throws IOException;
-
-    public abstract void aprender(Nodo nodo);
 
     /**
      * Metodo que formatea las preguntas para que el usuario las pueda

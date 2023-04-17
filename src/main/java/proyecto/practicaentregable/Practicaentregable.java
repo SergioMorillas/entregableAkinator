@@ -32,6 +32,7 @@ public class Practicaentregable {
                 miNodo.setNodoSi(new Nodo(null, "Angel"));
                 miNodo.setNodoNo(new Nodo(null, "Junchaya"));
                 SEAbstracto se = new SEClase(miNodo);
+                se.informacion();
                 se.juega(miNodo);
             }
         }

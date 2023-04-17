@@ -5,15 +5,16 @@ import java.util.Scanner;
 
 /**
  *
- * Esta clase representa el juego "Adivina la persona". Permite al usuario pensar
- * en un animal y el programa tratará de adivinarlo mediante preguntas que el
- * usuario deberá responder con "Si" o "No". Si no lo adivina, el programa
- * aprenderá una nueva pregunta que diferencie al animal del que estaba pensando
- * y la agregará a su base de conocimientos.
+ * Esta clase representa el juego "Adivina la persona". Permite al usuario
+ * pensar en un animal y el programa tratará de adivinarlo mediante preguntas
+ * que el usuario deberá responder con "Si" o "No". Si no lo adivina, el
+ * programa aprenderá una nueva pregunta que diferencie al animal del que estaba
+ * pensando y la agregará a su base de conocimientos.
  *
  * @author Sergio Morillas
  */
-public class SEClase extends SEAbstracto{
+public class SEClase extends SEAbstracto {
+
     /**
      * <b>Constructor</b> que permite crearse objetos de tipo SE utilizando un
      * nodo raiz
@@ -25,6 +26,7 @@ public class SEClase extends SEAbstracto{
         super(raiz);
         s = new Scanner(System.in);
     }
+
     /**
      * Método que inicia el juego.
      *
@@ -57,12 +59,13 @@ public class SEClase extends SEAbstracto{
             juega(raiz);
         }
     }
+
     @Override
     public void aprender(Nodo nodo) {
         String respuestas[] = new String[3];
         if (nodo.getRespuesta() != null) {
             System.out.println("¿Que persona estabas pensando?");
-            respuestas[0] = s.nextLine().toLowerCase();
+            respuestas[0] = super.formatearPersona(s.nextLine());
             System.out.println("¿Que pregunta diferenciaría a tu persona de "
                     + nodo.getRespuesta() + "?");
             respuestas[1] = formatearPregunta(s.nextLine());
@@ -85,4 +88,20 @@ public class SEClase extends SEAbstracto{
             nodo.setNodoSi(new Nodo(null, respuestas[0]));
         }
     }
+
+    @Override
+    public String informacion() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Bienvenido a la informacion del programa, aquí aprenderas a utilizarlo");
+        sb.append("Este programa es un sistema experto el cual irá aprendiendo sobre ti hasta saber mas que tu mismo");
+        sb.append("En este apartado especifico trataremos sobre compañeros de esta clase\n");
+        sb.append("Cuando el sistema no sepa la respuesta sobre un tema tendrás que enseñarsela, para ello tendras que seguir unas instrucciones");
+        sb.append("1· Te preguntará por tu compañero, deberas responder con tu compañero en minusculas --> iñigo");
+        sb.append("2· Te preguntará que diferencia a tu compañero de uno especifico, "
+                + "deberas responder con una frase corta, de tres palabras maximo, tambien todo en minusculas --> es listo");
+        sb.append("3· Te preguntará si tu animal responde afirmativamente o no a esa pregunta, deberas responder solamente si o no\n");
+        sb.append("Muchas gracias por jugar y esperemos que te guste");
+        return sb.toString();
+    }
+
 }

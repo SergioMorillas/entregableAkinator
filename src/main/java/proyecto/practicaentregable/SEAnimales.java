@@ -82,4 +82,18 @@ public class SEAnimales extends SEAbstracto {
             nodo.setNodoSi(new Nodo(null, respuestas[0]));
         }
     }
+
+    @Override
+    public String informacion() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Bienvenido a la informacion del programa, aquí aprenderas a utilizarlo");
+        sb.append("Este programa es un sistema experto el cual irá aprendiendo sobre ti hasta saber mas que tu mismo");
+        sb.append("En este apartado especifico trataremos sobre animales\n");
+        sb.append("Cuando el sistema no sepa la respuesta sobre un tema tendrás que enseñarsela, para ello tendras que seguir unas instrucciones");
+        sb.append("1· Te preguntará por tu animal, deberas responder con tu animal en minusculas --> gato");
+        sb.append("2· Te preguntará que diferencia a tu animal de uno especifico, deberas responder con una frase corta, de tres palabras maximo, tambien todo en minusculas --> es felino");
+        sb.append("3· Te preguntará si tu animal responde afirmativamente o no a esa pregunta, deberas responder solamente si o no\n");
+        sb.append("Muchas gracias por jugar y esperemos que te guste");
+        return sb.toString();
+    }
 }
