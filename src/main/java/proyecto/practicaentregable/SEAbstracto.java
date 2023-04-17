@@ -38,6 +38,8 @@ public abstract class SEAbstracto {
 
     public abstract String informacion();
 
+    public abstract void guardarInformacion() throws IOException;
+    
     public String formatearPersona(String persona) {
         char primero = persona.toUpperCase().charAt(0);
         String resto = persona.substring(1, persona.length()).toLowerCase();
@@ -110,23 +112,4 @@ public abstract class SEAbstracto {
             escritor.println("R:" + nodo.getRespuesta());
         }
     }
-
-    /**
-     * Metodo que guarda la informacion de los nodos en un fichero txt
-     *
-     * @throws IOException Si el fichero no existe lo creamos y añadimos la
-     * información
-     */
-    public void guardarInformacion() throws IOException {
-        System.out.println("¿Quieres guardar la informacion de la partida?");
-        if (s.nextLine().equalsIgnoreCase("si")) {
-            try {
-                guardarArbol(this.raiz, "./src/main/resources/texto/guardaArbol.txt");
-            } catch (IOException e) {
-                Fichero.crearArchivo("./src/main/resources/texto", "guardaArbol.txt");
-                guardarArbol(this.raiz, "./src/main/resources/texto/guardaArbol.txt");
-            }
-        }
-    }
-
 }

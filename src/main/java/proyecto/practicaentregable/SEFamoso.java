@@ -2,6 +2,7 @@ package proyecto.practicaentregable;
 
 import java.io.IOException;
 import java.util.Scanner;
+import proyecto.escrituraendisco.Fichero;
 
 /**
  * @author Sergio Morillas
@@ -85,5 +86,23 @@ public class SEFamoso extends SEAbstracto {
         sb.append("3· Te preguntará si tu famoso responde afirmativamente o no a esa pregunta, deberas responder solamente si o no\n");
         sb.append("Muchas gracias por jugar y esperemos que te guste");
         return sb.toString();
+    }
+        /**
+     * Metodo que guarda la informacion de los nodos en un fichero txt
+     *
+     * @throws IOException Si el fichero no existe lo creamos y añadimos la
+     * información
+     */
+    @Override
+    public void guardarInformacion() throws IOException {
+        System.out.println("¿Quieres guardar la informacion de la partida?");
+        if (s.nextLine().equalsIgnoreCase("si")) {
+            try {
+                guardarArbol(this.raiz, "./src/main/resources/texto/famoso.txt");
+            } catch (IOException e) {
+                Fichero.crearArchivo("./src/main/resources/texto", "famoso.txt");
+                guardarArbol(this.raiz, "./src/main/resources/texto/famoso.txt");
+            }
+        }
     }
 }

@@ -2,13 +2,14 @@ package proyecto.practicaentregable;
 
 import java.io.IOException;
 import java.util.Scanner;
+import javax.naming.LimitExceededException;
 
 /**
  * @author sergio
  */
 public class Practicaentregable {
 
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) throws IOException {
         int digitoControl;
 
         digitoControl = menu();
@@ -18,6 +19,7 @@ public class Practicaentregable {
                 miNodo.setNodoSi(new Nodo(null, "gato"));
                 miNodo.setNodoNo(new Nodo(null, "paloma"));
                 SEAbstracto se = new SEAnimales(miNodo);
+                limpiaPantalla();
                 se.juega(miNodo);
             }
             case 2 -> {
@@ -25,6 +27,7 @@ public class Practicaentregable {
                 miNodo.setNodoSi(new Nodo(null, "Alex Corretja"));
                 miNodo.setNodoNo(new Nodo(null, "Don Quijote"));
                 SEAbstracto se = new SEFamoso(miNodo);
+                limpiaPantalla();
                 se.juega(miNodo);
             }
             case 3 -> {
@@ -33,6 +36,7 @@ public class Practicaentregable {
                 miNodo.setNodoNo(new Nodo(null, "Junchaya"));
                 SEAbstracto se = new SEClase(miNodo);
                 se.informacion();
+                limpiaPantalla();
                 se.juega(miNodo);
             }
         }
@@ -59,5 +63,10 @@ public class Practicaentregable {
             }
         } while (valor < 1 || valor > 3);
         return valor;
+    }
+    public static void limpiaPantalla (){
+        for (int i = 0; i < 50; i++) {
+            System.out.println("");
+        }
     }
 }
