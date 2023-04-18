@@ -1,12 +1,12 @@
 package proyecto.practicaentregable;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import static java.lang.System.exit;
 import java.util.Scanner;
-import proyecto.escrituraendisco.Fichero;
 
 /**
  * @author Sergio Morillas
@@ -39,7 +39,7 @@ public abstract class SEAbstracto {
     public abstract String informacion();
 
     public abstract void guardarInformacion() throws IOException;
-    
+
     public String formatearPersona(String persona) {
         char primero = persona.toUpperCase().charAt(0);
         String resto = persona.substring(1, persona.length()).toLowerCase();
@@ -58,7 +58,6 @@ public abstract class SEAbstracto {
         if (s.nextLine().equalsIgnoreCase("si")) {
             this.juega(raiz);
         } else {
-            System.out.println(Fichero.leerArchivo("./src/main/resources/texto", "guardaArbol.txt"));
             guardarInformacion();
             exit(0);
         }
@@ -86,7 +85,7 @@ public abstract class SEAbstracto {
      * @throws IOException Si se produce un error al escribir en el archivo.
      */
     public void guardarArbol(Nodo nodo, String archivo) throws IOException {
-        try (PrintWriter escritor = new PrintWriter(new BufferedWriter(new FileWriter(archivo)))) {
+        try ( PrintWriter escritor = new PrintWriter(new BufferedWriter(new FileWriter(archivo)))) {
             guardarNodo(nodo, escritor);
         } catch (Exception e) {
             System.err.println(e);
@@ -110,6 +109,36 @@ public abstract class SEAbstracto {
             guardarNodo(nodo.getNodoNo(), escritor);
         } else {
             escritor.println("R:" + nodo.getRespuesta());
+        }
+    }
+    
+    public void limpiaPantalla() {
+        try {
+            new ProcessBuilder("cmd", "/c",
+        "cls").inheritIO().start().waitFor();
+        } catch (Exception e) {
+        }
+    }
+
+    public static void cargarNodo(Nodo nodo, BufferedReader br) throws IOException {
+        String linea = br.readLine();
+        String tipo = linea.substring(0, 1);
+        String texto = linea.substring(2).trim();
+
+        if (tipo.equals("P")) {
+            nodo.setPregunta(texto);
+            System.out.println(tipo);
+            System.out.println(texto);
+            nodo.setNodoSi(new Nodo("", null));
+            nodo.setNodoNo(new Nodo("", null));
+            cargarNodo(nodo.getNodoSi(), br);
+            cargarNodo(nodo.getNodoNo(), br);
+        } else if (tipo.equals("R")) {
+            System.out.println(tipo);
+            nodo.setRespuesta(texto);
+            System.out.println(texto);
+        } else {
+            System.err.println("El archivo estaba mal formulado");
         }
     }
 }

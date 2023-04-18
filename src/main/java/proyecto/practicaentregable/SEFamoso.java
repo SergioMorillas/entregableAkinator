@@ -1,14 +1,20 @@
 package proyecto.practicaentregable;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 import proyecto.escrituraendisco.Fichero;
 
 /**
+ *
+ * Esta clase representa el juego "Adivina el famoso". Permite al usuario pensar
+ * en un famoso y el programa tratará de adivinarlo mediante preguntas que el
+ * usuario deberá responder con "Si" o "No". Si no lo adivina, el programa
+ * aprenderá una nueva pregunta que diferencie al famoso del que estaba pensando
+ * y la agregará a su base de conocimientos.
+ *
  * @author Sergio Morillas
- */
-/*
-
  */
 public class SEFamoso extends SEAbstracto {
 
@@ -77,17 +83,18 @@ public class SEFamoso extends SEAbstracto {
     @Override
     public String informacion() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Bienvenido a la informacion del programa, aquí aprenderas a utilizarlo");
-        sb.append("Este programa es un sistema experto el cual irá aprendiendo sobre ti hasta saber mas que tu mismo");
+        sb.append("Bienvenido a la informacion del programa, aquí aprenderas a utilizarlo\n");
+        sb.append("Este programa es un sistema experto el cual irá aprendiendo sobre ti hasta saber mas que tu mismo\n");
         sb.append("En este apartado especifico trataremos sobre famosos\n");
-        sb.append("Cuando el sistema no sepa la respuesta sobre un tema tendrás que enseñarsela, para ello tendras que seguir unas instrucciones");
-        sb.append("1· Te preguntará por tu famoso, deberas responder con tu famoso en minusculas (Nombre o nombre y apellido) --> messi");
-        sb.append("2· Te preguntará que diferencia a tu famoso de uno especifico, deberas responder con una frase corta, de tres palabras maximo, tambien todo en minusculas --> es futbolista");
+        sb.append("Cuando el sistema no sepa la respuesta sobre un tema tendrás que enseñarsela, para ello tendras que seguir unas instrucciones\n");
+        sb.append("1· Te preguntará por tu famoso, deberas responder con tu famoso en minusculas (Nombre o nombre y apellido) --> messi\n");
+        sb.append("2· Te preguntará que diferencia a tu famoso de uno especifico, deberas responder con una frase corta, de tres palabras maximo, tambien todo en minusculas --> es futbolista\n");
         sb.append("3· Te preguntará si tu famoso responde afirmativamente o no a esa pregunta, deberas responder solamente si o no\n");
-        sb.append("Muchas gracias por jugar y esperemos que te guste");
+        sb.append("Muchas gracias por jugar y esperemos que te guste\n\n");
         return sb.toString();
     }
-        /**
+
+    /**
      * Metodo que guarda la informacion de los nodos en un fichero txt
      *
      * @throws IOException Si el fichero no existe lo creamos y añadimos la
@@ -103,6 +110,38 @@ public class SEFamoso extends SEAbstracto {
                 Fichero.crearArchivo("./src/main/resources/texto", "famoso.txt");
                 guardarArbol(this.raiz, "./src/main/resources/texto/famoso.txt");
             }
+        }
+    }
+
+    public static SEFamoso cargarArbol() {
+        try {
+            Nodo root = new Nodo("", null);
+
+            BufferedReader br = new BufferedReader(
+                    new FileReader("./src/main/resources/texto/famoso.txt")
+            );
+            cargarNodo(root, br);
+            return new SEFamoso(root);
+        } catch (IOException e) {
+            System.err.println("Me la catcheas");
+            return null;
+        }
+    }
+
+    public static void cargarNodo(Nodo nodo, BufferedReader br) throws IOException {
+        int c = br.read();
+        br.read();
+
+        if (c == 'P') {
+            nodo.setPregunta(br.readLine());
+            nodo.setNodoSi(new Nodo("", null));
+            nodo.setNodoNo(new Nodo("", null));
+            cargarNodo(nodo.getNodoSi(), br);
+            cargarNodo(nodo.getNodoNo(), br);
+        } else if (c == 'R') {
+            nodo.setRespuesta(br.readLine());
+        } else {
+            throw new IOException();
         }
     }
 }

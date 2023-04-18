@@ -1,0 +1,9 @@
+P:¿Es mamifero?
+P:¿Felino?
+P:¿Es domestico?
+R:gato
+R:tigre
+P:¿Puedes montar?
+R:caballo
+R:perro
+R:paloma

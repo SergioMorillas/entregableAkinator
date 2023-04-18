@@ -1,8 +1,8 @@
 package proyecto.practicaentregable;
 
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
-import javax.naming.LimitExceededException;
 
 /**
  * @author sergio
@@ -12,14 +12,13 @@ public class Practicaentregable {
     public static void main(String[] args) throws IOException {
         int digitoControl;
 
-        digitoControl = menu();
+        digitoControl = menuTema();
         switch (digitoControl) {
             case 1 -> {
-                Nodo miNodo = new Nodo("¿Es mamifero?", null);
-                miNodo.setNodoSi(new Nodo(null, "gato"));
-                miNodo.setNodoNo(new Nodo(null, "paloma"));
+                Nodo miNodo = SEAnimales.cargarArbol(new FileReader("./src/main/resources/texto/animales.txt"));
                 SEAbstracto se = new SEAnimales(miNodo);
-                limpiaPantalla();
+                se.limpiaPantalla();
+                System.out.println(se.informacion());
                 se.juega(miNodo);
             }
             case 2 -> {
@@ -27,7 +26,8 @@ public class Practicaentregable {
                 miNodo.setNodoSi(new Nodo(null, "Alex Corretja"));
                 miNodo.setNodoNo(new Nodo(null, "Don Quijote"));
                 SEAbstracto se = new SEFamoso(miNodo);
-                limpiaPantalla();
+                se.limpiaPantalla();
+                System.out.println(se.informacion());
                 se.juega(miNodo);
             }
             case 3 -> {
@@ -35,14 +35,14 @@ public class Practicaentregable {
                 miNodo.setNodoSi(new Nodo(null, "Angel"));
                 miNodo.setNodoNo(new Nodo(null, "Junchaya"));
                 SEAbstracto se = new SEClase(miNodo);
-                se.informacion();
-                limpiaPantalla();
+                se.limpiaPantalla();
+                System.out.println(se.informacion());
                 se.juega(miNodo);
             }
         }
     }
 
-    public static int menu() {
+    public static int menuTema() {
         Scanner s = new Scanner(System.in);
         int valor = 0;
         do {
@@ -63,10 +63,5 @@ public class Practicaentregable {
             }
         } while (valor < 1 || valor > 3);
         return valor;
-    }
-    public static void limpiaPantalla (){
-        for (int i = 0; i < 50; i++) {
-            System.out.println("");
-        }
     }
 }

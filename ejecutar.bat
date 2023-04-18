@@ -1,1 +1,1 @@
-java -jar ./miPrograma.jar.jar
+java -jar ./miPrograma.jar

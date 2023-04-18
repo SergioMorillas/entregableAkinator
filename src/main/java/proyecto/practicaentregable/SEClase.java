@@ -1,15 +1,16 @@
 package proyecto.practicaentregable;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 import proyecto.escrituraendisco.Fichero;
-
 /**
  *
- * Esta clase representa el juego "Adivina la persona". Permite al usuario
- * pensar en un animal y el programa tratará de adivinarlo mediante preguntas
+ * Esta clase representa el juego "Adivina el compañero". Permite al usuario
+ * pensar en un compañero y el programa tratará de adivinarlo mediante preguntas
  * que el usuario deberá responder con "Si" o "No". Si no lo adivina, el
- * programa aprenderá una nueva pregunta que diferencie al animal del que estaba
+ * programa aprenderá una nueva pregunta que diferencie al compañero del que estaba
  * pensando y la agregará a su base de conocimientos.
  *
  * @author Sergio Morillas
@@ -104,6 +105,7 @@ public class SEClase extends SEAbstracto {
         sb.append("Muchas gracias por jugar y esperemos que te guste");
         return sb.toString();
     }
+
     /**
      * Metodo que guarda la informacion de los nodos en un fichero txt
      *
@@ -120,6 +122,36 @@ public class SEClase extends SEAbstracto {
                 Fichero.crearArchivo("./src/main/resources/texto", "clase.txt");
                 guardarArbol(this.raiz, "./src/main/resources/texto/clase.txt");
             }
+        }
+    }
+
+    public static SEClase cargarArbol() {
+        try {
+            Nodo root = new Nodo("", null);
+            BufferedReader br = new BufferedReader(
+                    new FileReader("./src/main/resources/texto/famoso.txt")
+            );
+            cargarNodo(root, br);
+            return new SEClase(root);
+        } catch (IOException e) {
+            return null;
+        }
+    }
+
+    public static void cargarNodo(Nodo nodo, BufferedReader br) throws IOException {
+        int c = br.read();
+        br.read();
+
+        if (c == 'P') {
+            nodo.setPregunta(br.readLine());
+            nodo.setNodoSi(new Nodo("", null));
+            nodo.setNodoNo(new Nodo("", null));
+            cargarNodo(nodo.getNodoSi(), br);
+            cargarNodo(nodo.getNodoNo(), br);
+        } else if (c == 'R') {
+            nodo.setRespuesta(br.readLine());
+        } else {
+            throw new IOException();
         }
     }
 }

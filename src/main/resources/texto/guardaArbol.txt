@@ -1,7 +1,0 @@
-P:¿Es mamifero?
-P:¿Es felino?
-R:gato
-R:perro
-P:¿Puede volar?
-R:iguana
-R:paloma
