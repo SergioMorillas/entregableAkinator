@@ -1,1 +1,1 @@
-java -jar ./miPrograma.jar
+java -jar ./target/practicaentregable-1.0-SNAPSHOT.jar

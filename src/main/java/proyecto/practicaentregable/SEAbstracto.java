@@ -2,6 +2,7 @@ package proyecto.practicaentregable;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,8 +17,8 @@ import java.util.Scanner;
  */
 public abstract class SEAbstracto {
 
-    protected Nodo raiz;
-    protected String respuesta, pregunta;
+    private Nodo raiz;
+    private String respuesta, pregunta;
     protected Scanner s;
 
     /**
@@ -85,7 +86,7 @@ public abstract class SEAbstracto {
      * @throws IOException Si se produce un error al escribir en el archivo.
      */
     public void guardarArbol(Nodo nodo, String archivo) throws IOException {
-        try ( PrintWriter escritor = new PrintWriter(new BufferedWriter(new FileWriter(archivo)))) {
+        try (PrintWriter escritor = new PrintWriter(new BufferedWriter(new FileWriter(archivo)))) {
             guardarNodo(nodo, escritor);
         } catch (Exception e) {
             System.err.println(e);
@@ -111,11 +112,11 @@ public abstract class SEAbstracto {
             escritor.println("R:" + nodo.getRespuesta());
         }
     }
-    
+
     public void limpiaPantalla() {
         try {
             new ProcessBuilder("cmd", "/c",
-        "cls").inheritIO().start().waitFor();
+                    "cls").inheritIO().start().waitFor();
         } catch (Exception e) {
         }
     }
@@ -127,18 +128,51 @@ public abstract class SEAbstracto {
 
         if (tipo.equals("P")) {
             nodo.setPregunta(texto);
-            System.out.println(tipo);
-            System.out.println(texto);
             nodo.setNodoSi(new Nodo("", null));
             nodo.setNodoNo(new Nodo("", null));
             cargarNodo(nodo.getNodoSi(), br);
             cargarNodo(nodo.getNodoNo(), br);
         } else if (tipo.equals("R")) {
-            System.out.println(tipo);
             nodo.setRespuesta(texto);
-            System.out.println(texto);
         } else {
             System.err.println("El archivo estaba mal formulado");
         }
+    }
+
+    public static Nodo cargarArbol(FileReader archivo) {
+        Nodo raiz;
+        BufferedReader br;
+        try {
+            raiz = new Nodo("", null);
+            br = new BufferedReader(archivo);
+            cargarNodo(raiz, br);
+            return raiz;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public Nodo getRaiz() {
+        return raiz;
+    }
+
+    public void setRaiz(Nodo raiz) {
+        this.raiz = raiz;
+    }
+
+    public String getRespuesta() {
+        return respuesta;
+    }
+
+    public void setRespuesta(String respuesta) {
+        this.respuesta = respuesta;
+    }
+
+    public String getPregunta() {
+        return pregunta;
+    }
+
+    public void setPregunta(String pregunta) {
+        this.pregunta = pregunta;
     }
 }

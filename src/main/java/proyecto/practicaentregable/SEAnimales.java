@@ -1,7 +1,5 @@
 package proyecto.practicaentregable;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 import proyecto.escrituraendisco.Fichero;
@@ -31,7 +29,7 @@ public class SEAnimales extends SEAbstracto {
      */
     @Override
     public void comprobaciones(Nodo nodo) throws IOException {
-        if (respuesta.equalsIgnoreCase("si")) { // Si el usuario responde si a la pregunta
+        if (getRespuesta().equalsIgnoreCase("si")) { // Si el usuario responde si a la pregunta
             if (nodo.getRespuesta() != null) { // Si hay respuesta directa la mostramos
                 System.out.println("Tu animal es " + nodo.getRespuesta());
                 System.out.println("¿He acertado? (Si/No)");
@@ -41,7 +39,7 @@ public class SEAnimales extends SEAbstracto {
             } else if (nodo.getNodoSi() != null) { // Si el nodoSi no es null jugamos
                 juega(nodo.getNodoSi());
             }
-        } else if (respuesta.equalsIgnoreCase("no")) { // El usuario responde no 
+        } else if (getRespuesta().equalsIgnoreCase("no")) { // El usuario responde no 
             if (nodo.getRespuesta() != null) { // Si hay respuesta directa la mostramos
                 System.out.println("Tu animal es " + nodo.getRespuesta());
                 System.out.println("¿He acertado? (Si/No)");
@@ -53,7 +51,7 @@ public class SEAnimales extends SEAbstracto {
             }
         } else {
             System.out.println("Te has equivocado, vamos a empezar otra vez a ver si te aclaras");
-            juega(raiz);
+            juega(getRaiz());
         }
     }
 
@@ -111,24 +109,11 @@ public class SEAnimales extends SEAbstracto {
         System.out.println("¿Quieres guardar la informacion de la partida?");
         if (s.nextLine().equalsIgnoreCase("si")) {
             try {
-                guardarArbol(this.raiz, "./src/main/resources/texto/animales.txt");
+                guardarArbol(this.getRaiz(), "./src/main/resources/texto/animales.txt");
             } catch (IOException e) {
                 Fichero.crearArchivo("./src/main/resources/texto", "animales.txt");
-                guardarArbol(this.raiz, "./src/main/resources/texto/animales.txt");
+                guardarArbol(this.getRaiz(), "./src/main/resources/texto/animales.txt");
             }
-        }
-    }
-
-    public static Nodo cargarArbol(FileReader archivo) {
-        Nodo raiz;
-        BufferedReader br;
-        try {
-            raiz = new Nodo("", null);
-            br = new BufferedReader(archivo);
-            cargarNodo(raiz, br);
-            return raiz;
-        } catch (Exception e) {
-            return null;
         }
     }
 }

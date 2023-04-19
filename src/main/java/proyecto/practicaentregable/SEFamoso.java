@@ -1,7 +1,6 @@
 package proyecto.practicaentregable;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 import proyecto.escrituraendisco.Fichero;
@@ -20,12 +19,12 @@ public class SEFamoso extends SEAbstracto {
 
     public SEFamoso(Nodo raiz) {
         super(raiz);
-        s = new Scanner(System.in);
+        super.s = new Scanner(System.in);
     }
 
     @Override
     public void comprobaciones(Nodo nodo) throws IOException {
-        if (respuesta.equalsIgnoreCase("si")) { // Si el usuario responde si a la pregunta
+        if (getRespuesta().equalsIgnoreCase("si")) { // Si el usuario responde si a la pregunta
             if (nodo.getRespuesta() != null) { // Si hay respuesta directa la mostramos
                 System.out.println("Tu famoso es " + nodo.getRespuesta());
                 System.out.println("¿He acertado? (Si/No)");
@@ -35,7 +34,7 @@ public class SEFamoso extends SEAbstracto {
             } else if (nodo.getNodoSi() != null) { // Si el nodoSi no es null jugamos
                 juega(nodo.getNodoSi());
             }
-        } else if (respuesta.equalsIgnoreCase("no")) { // El usuario responde no 
+        } else if (getRespuesta().equalsIgnoreCase("no")) { // El usuario responde no 
             if (nodo.getRespuesta() != null) { // Si hay respuesta directa la mostramos
                 System.out.println("Tu famoso es " + nodo.getRespuesta());
                 System.out.println("¿He acertado? (Si/No)");
@@ -47,7 +46,7 @@ public class SEFamoso extends SEAbstracto {
             }
         } else {
             System.out.println("Te has equivocado, vamos a empezar otra vez a ver si te aclaras");
-            juega(raiz);
+            juega(getRaiz());
         }
     }
 
@@ -105,26 +104,11 @@ public class SEFamoso extends SEAbstracto {
         System.out.println("¿Quieres guardar la informacion de la partida?");
         if (s.nextLine().equalsIgnoreCase("si")) {
             try {
-                guardarArbol(this.raiz, "./src/main/resources/texto/famoso.txt");
+                guardarArbol(this.getRaiz(), "./src/main/resources/texto/famoso.txt");
             } catch (IOException e) {
                 Fichero.crearArchivo("./src/main/resources/texto", "famoso.txt");
-                guardarArbol(this.raiz, "./src/main/resources/texto/famoso.txt");
+                guardarArbol(this.getRaiz(), "./src/main/resources/texto/famoso.txt");
             }
-        }
-    }
-
-    public static SEFamoso cargarArbol() {
-        try {
-            Nodo root = new Nodo("", null);
-
-            BufferedReader br = new BufferedReader(
-                    new FileReader("./src/main/resources/texto/famoso.txt")
-            );
-            cargarNodo(root, br);
-            return new SEFamoso(root);
-        } catch (IOException e) {
-            System.err.println("Me la catcheas");
-            return null;
         }
     }
 

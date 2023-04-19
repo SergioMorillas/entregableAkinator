@@ -1,17 +1,17 @@
 package proyecto.practicaentregable;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 import proyecto.escrituraendisco.Fichero;
+
 /**
  *
  * Esta clase representa el juego "Adivina el compañero". Permite al usuario
  * pensar en un compañero y el programa tratará de adivinarlo mediante preguntas
  * que el usuario deberá responder con "Si" o "No". Si no lo adivina, el
- * programa aprenderá una nueva pregunta que diferencie al compañero del que estaba
- * pensando y la agregará a su base de conocimientos.
+ * programa aprenderá una nueva pregunta que diferencie al compañero del que
+ * estaba pensando y la agregará a su base de conocimientos.
  *
  * @author Sergio Morillas
  */
@@ -36,7 +36,7 @@ public class SEClase extends SEAbstracto {
      */
     @Override
     public void comprobaciones(Nodo nodo) throws IOException {
-        if (respuesta.equalsIgnoreCase("si")) { // Si el usuario responde si a la pregunta
+        if (getRespuesta().equalsIgnoreCase("si")) { // Si el usuario responde si a la pregunta
             if (nodo.getRespuesta() != null) { // Si hay respuesta directa la mostramos
                 System.out.println("Tu persona es " + nodo.getRespuesta());
                 System.out.println("¿He acertado? (Si/No)");
@@ -46,7 +46,7 @@ public class SEClase extends SEAbstracto {
             } else if (nodo.getNodoSi() != null) { // Si el nodoSi no es null jugamos
                 juega(nodo.getNodoSi());
             }
-        } else if (respuesta.equalsIgnoreCase("no")) { // El usuario responde no 
+        } else if (getRespuesta().equalsIgnoreCase("no")) { // El usuario responde no 
             if (nodo.getRespuesta() != null) { // Si hay respuesta directa la mostramos
                 System.out.println("Tu persona es " + nodo.getRespuesta());
                 System.out.println("¿He acertado? (Si/No)");
@@ -58,7 +58,7 @@ public class SEClase extends SEAbstracto {
             }
         } else {
             System.out.println("Te has equivocado, vamos a empezar otra vez a ver si te aclaras");
-            juega(raiz);
+            juega(getRaiz());
         }
     }
 
@@ -117,24 +117,11 @@ public class SEClase extends SEAbstracto {
         System.out.println("¿Quieres guardar la informacion de la partida?");
         if (s.nextLine().equalsIgnoreCase("si")) {
             try {
-                guardarArbol(this.raiz, "./src/main/resources/texto/clase.txt");
+                guardarArbol(this.getRaiz(), "./src/main/resources/texto/clase.txt");
             } catch (IOException e) {
                 Fichero.crearArchivo("./src/main/resources/texto", "clase.txt");
-                guardarArbol(this.raiz, "./src/main/resources/texto/clase.txt");
+                guardarArbol(this.getRaiz(), "./src/main/resources/texto/clase.txt");
             }
-        }
-    }
-
-    public static SEClase cargarArbol() {
-        try {
-            Nodo root = new Nodo("", null);
-            BufferedReader br = new BufferedReader(
-                    new FileReader("./src/main/resources/texto/famoso.txt")
-            );
-            cargarNodo(root, br);
-            return new SEClase(root);
-        } catch (IOException e) {
-            return null;
         }
     }
 

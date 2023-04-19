@@ -1,5 +1,3 @@
-P:¿Es real?
-P:¿Es futbolista?
-P:
-P:
-P:
+P:�Es real?
+R:Alex Corretja
+R:Don Quijote
