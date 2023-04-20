@@ -1,9 +1,15 @@
 P:¿Es mamifero?
-P:¿Felino?
 P:¿Es domestico?
+P:¿Es felino?
 R:gato
-R:tigre
-P:¿Puedes montar?
-R:caballo
+P:¿Es lento?
+R:tortuga
 R:perro
-R:paloma
+P:¿Se puede montar?
+R:caballo
+P:¿Es comida?
+P:¿Es pequeño?
+R:pollo
+R:cerdo
+R:tigre
+R:salmon
